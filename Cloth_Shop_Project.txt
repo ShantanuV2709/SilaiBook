@@ -1,0 +1,134 @@
+
+TAILORING / CLOTH SHOP MANAGEMENT SOFTWARE
+SCREEN FEATURES DOCUMENT
+
+-----------------------------------------
+1. LOGIN SCREEN
+-----------------------------------------
+- Username and password login
+- Forgot password option
+
+-----------------------------------------
+2. DASHBOARD SCREEN
+-----------------------------------------
+- Today’s total income
+- Today’s total expense
+- Available cloth stock (in meters)
+- Pending customer payments
+- Total customers count
+- Quick action buttons:
+  - Add Customer
+  - Add Stock
+  - Add Payment
+  - Send Message
+
+-----------------------------------------
+3. CLOTH / FABRIC MANAGEMENT SCREEN
+-----------------------------------------
+- Add new cloth entry
+- Dealer / Supplier name
+- Cloth type (Cotton, Silk, Suiting, etc.)
+- Total meters received
+- Purchase date
+- Used meters entry
+- Remaining meters (auto calculated)
+- Dealer-wise cloth report
+- Edit / Delete cloth entries
+
+-----------------------------------------
+4. STOCK MANAGEMENT SCREEN
+-----------------------------------------
+- Total available cloth stock
+- Used cloth stock
+- Finished cloth stock
+- Low stock alert
+- Category wise stock
+- Date wise stock reports
+
+-----------------------------------------
+5. AMOUNT / DAILY CASH MANAGEMENT SCREEN
+-----------------------------------------
+- Daily income entry
+- Daily expense entry
+- Expense category (Rent, Light, Repair, etc.)
+- Payment mode (Cash / UPI / Bank)
+- Auto daily total calculation
+- Monthly summary
+- Profit and loss overview
+
+-----------------------------------------
+6. CUSTOMER MANAGEMENT SCREEN
+-----------------------------------------
+- Add new customer
+- Customer name
+- Mobile number
+- Religion / Category selection option
+- Customer details photo upload
+- Measurement details
+- Order history
+- Customer search option
+- Edit / Delete customer details
+
+-----------------------------------------
+7. PAYMENT MANAGEMENT SCREEN
+-----------------------------------------
+- Customer-wise payment records
+- Total bill amount
+- Advance payment received
+- Remaining balance
+- Paid / Unpaid status
+- Payment date history
+- Payment mode details
+- Payment reminder option
+
+-----------------------------------------
+8. EMPLOYEE / KARIGAR MANAGEMENT SCREEN
+-----------------------------------------
+- Employee name and contact number
+- Work type (Cutting / Stitching / Finishing)
+- Assigned work details
+- Daily or monthly salary entry
+- Advance payment record
+- Salary payment status
+
+-----------------------------------------
+9. OWNER / PARTNER MANAGEMENT SCREEN
+-----------------------------------------
+- Multiple owner profiles
+- Owner-wise expense entry
+- Individual spending reports
+- Monthly owner summary
+
+-----------------------------------------
+10. OTHER EXPENSES MANAGEMENT SCREEN
+-----------------------------------------
+- Add shop-related expenses
+- Expense type
+- Amount
+- Date
+- Remarks
+- Monthly expense reports
+
+-----------------------------------------
+11. MESSAGE / NOTIFICATION SCREEN
+-----------------------------------------
+- Manual message sending
+- Automatic message settings
+- Thank-you message for customer visit
+- Work completion message
+- Festival wishes (bulk messaging)
+- Payment reminder messages
+- SMS and WhatsApp support
+
+-----------------------------------------
+12. REPORTS SCREEN
+-----------------------------------------
+- Daily and monthly reports
+- Customer reports
+- Stock reports
+- Income vs Expense reports
+- Employee payment reports
+- Download reports in PDF / Excel format
+
+
+
