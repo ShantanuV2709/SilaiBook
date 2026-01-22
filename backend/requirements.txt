@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pymongo
+python-dotenv
+pydantic
+pydantic-settings
+passlib==1.7.4
+bcrypt==3.2.2
+python-jose
