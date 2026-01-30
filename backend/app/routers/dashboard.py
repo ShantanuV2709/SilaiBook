@@ -32,8 +32,31 @@ def pending_amount(current_user: dict = Depends(get_current_user)):
     db = get_db()
 
     pipeline = [
-        {"$match": {"status": {"$in": ["Partial", "Unpaid"]}}},
-        {"$group": {"_id": None, "total": {"$sum": "$remaining_amount"}}}
+        # 1. Group by customer to get their running totals
+        {
+            "$group": {
+                "_id": "$customer_id",
+                "total_bill": {"$sum": "$total_bill"},
+                "paid_amount": {"$sum": "$paid_amount"}
+            }
+        },
+        # 2. Calculate remaining amount
+        {
+            "$addFields": {
+                "remaining_amount": {"$subtract": ["$total_bill", "$paid_amount"]}
+            }
+        },
+        # 3. Filter for actual dues (ignore overpaid or zero balance)
+        {
+            "$match": {"remaining_amount": {"$gt": 0}}
+        },
+        # 4. Sum the total pending
+        {
+            "$group": {
+                "_id": None,
+                "total": {"$sum": "$remaining_amount"}
+            }
+        }
     ]
 
     result = list(db.payments.aggregate(pipeline))

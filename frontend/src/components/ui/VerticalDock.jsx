@@ -1,27 +1,39 @@
 import { useState } from "react";
 import "./VerticalDock.css";
 
-export default function VerticalDock({ items }) {
+export default function VerticalDock({ items, header, footer }) {
   const [hovered, setHovered] = useState(null);
 
   return (
     <aside className="dock-outer">
       <div className="dock-panel">
-        {items.map((item, i) => (
-          <button
-            key={i}
-            className={`dock-item ${hovered === i ? "dock-hovered" : ""}`}
-            onMouseEnter={() => setHovered(i)}
-            onMouseLeave={() => setHovered(null)}
-            onClick={item.onClick}
-            aria-label={item.label}
-          >
-            <span className="dock-icon">{item.icon}</span>
-            {hovered === i && (
-              <span className="dock-label">{item.label}</span>
-            )}
-          </button>
-        ))}
+
+        {/* HEADER (Logo) */}
+        {/* We assign a distinct class for styling only if header exists */}
+        {header && <div className="dock-header">{header}</div>}
+
+        {/* NAV LINKS */}
+        <div className="dock-links">
+          {items.map((item, i) => (
+            <button
+              key={i}
+              className={`dock-item ${hovered === i ? "dock-hovered" : ""}`}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+              onClick={item.onClick}
+              aria-label={item.label}
+            >
+              <span className="dock-icon">{item.icon}</span>
+              {hovered === i && (
+                <span className="dock-label">{item.label}</span>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* FOOTER (Theme Toggle) */}
+        {footer && <div className="dock-footer">{footer}</div>}
+
       </div>
     </aside>
   );

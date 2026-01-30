@@ -30,17 +30,17 @@ export default function AddStockModal({ onClose, onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center">
-      <div className="bg-white rounded-3xl p-8 w-full max-w-md relative">
+    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+      <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 w-full max-w-md relative shadow-2xl">
 
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-slate-400 hover:text-slate-900"
+          className="absolute top-4 right-4 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
         >
           ✕
         </button>
 
-        <h2 className="text-2xl font-black mb-6">
+        <h2 className="text-2xl font-black mb-6 text-slate-900 dark:text-white">
           Add Cloth Stock
         </h2>
 
@@ -49,13 +49,13 @@ export default function AddStockModal({ onClose, onSuccess }) {
             placeholder="Dealer / Supplier Name"
             value={dealerName}
             onChange={e => setDealerName(e.target.value)}
-            className="w-full border border-slate-300 rounded-xl px-4 py-3"
+            className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-xl px-4 py-3 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-400"
           />
 
           <select
             value={clothType}
             onChange={e => setClothType(e.target.value)}
-            className="w-full border border-slate-300 rounded-xl px-4 py-3"
+            className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-400"
           >
             <option>Cotton</option>
             <option>Silk</option>
@@ -68,7 +68,7 @@ export default function AddStockModal({ onClose, onSuccess }) {
             placeholder="Total meters received"
             value={totalMeters}
             onChange={e => setTotalMeters(e.target.value)}
-            className="w-full border border-slate-300 rounded-xl px-4 py-3"
+            className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-xl px-4 py-3 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-400"
           />
 
           <input
@@ -76,7 +76,7 @@ export default function AddStockModal({ onClose, onSuccess }) {
             placeholder="Price per meter"
             value={pricePerMeter}
             onChange={e => setPricePerMeter(e.target.value)}
-            className="w-full border border-slate-300 rounded-xl px-4 py-3"
+            className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-xl px-4 py-3 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-400"
           />
         </div>
 
@@ -85,12 +85,13 @@ export default function AddStockModal({ onClose, onSuccess }) {
           disabled={loading}
           className="
             mt-6 w-full
-            bg-slate-900 text-white
+            bg-slate-900 dark:bg-white text-white dark:text-slate-900
             py-3 rounded-2xl
             font-bold
-            hover:bg-black
+            hover:bg-black dark:hover:bg-slate-200
             transition
             disabled:opacity-50
+            shadow-lg shadow-slate-900/20 dark:shadow-none
           "
         >
           {loading ? "Saving..." : "Add Stock"}

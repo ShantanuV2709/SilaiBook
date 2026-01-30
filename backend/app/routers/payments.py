@@ -114,7 +114,7 @@ def customer_payment_summary(
             "$group": {
                 "_id": "$customer_id",
                 "customer_name": {"$last": "$customer_name"},
-                "total_bill": {"$max": "$total_bill"},
+                "total_bill": {"$sum": "$total_bill"},
                 "paid_amount": {"$sum": "$paid_amount"},
                 "last_payment_date": {"$max": "$created_at"},
                 "due_date": {"$last": "$due_date"},
@@ -152,3 +152,22 @@ def customer_payment_summary(
         }
         for r in result
     ]
+
+# -------------------------------
+# DELETE PAYMENT
+# -------------------------------
+@router.delete("/{payment_id}")
+def delete_payment(
+    payment_id: str,
+    current_user: dict = Depends(get_current_user)
+):
+    db = get_db()
+    
+    result = db.payments.delete_one({
+        "_id": ObjectId(payment_id)
+    })
+    
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Payment not found")
+        
+    return {"message": "Payment deleted successfully"}

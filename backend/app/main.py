@@ -1,6 +1,8 @@
 from fastapi import FastAPI
-from app.routers import health,auth,protected,customers,cloth_stock,payments,dashboard,expenses,employees,orders
+from app.routers import health,auth,protected,customers,cloth_stock,payments,dashboard,expenses,employees,orders,owners
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+import os
 
 app = FastAPI(
     title="SilaiBook API",
@@ -27,7 +29,12 @@ app.include_router(payments.router)
 app.include_router(dashboard.router)
 app.include_router(expenses.router)
 app.include_router(employees.router)
+app.include_router(owners.router)
 app.include_router(orders.router)
+
+# Ensure static directory exists
+os.makedirs("app/static/photos", exist_ok=True)
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 @app.get("/")
 def root():

@@ -201,6 +201,11 @@ def cloth_usage_history(
             **h,
             "_id": str(h["_id"]),
             "stock_id": str(h["stock_id"]),
+            "order_id": str(h.get("order_id", "")),
+            "cloth_type": h.get("cloth_type", "Unknown"),
+            "dealer_name": h.get("dealer_name", "Unknown"),
+            # 🔧 NORMALIZE KEYS: Frontend expects 'used_meters', but create_order saved 'meters_used'
+            "used_meters": h.get("used_meters", h.get("meters_used", 0))
         }
         for h in history
     ]

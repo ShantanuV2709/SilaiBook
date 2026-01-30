@@ -27,3 +27,8 @@ export const fetchCustomerPayments = async (customerId) => {
   const res = await api.get(`/payments/customer/${customerId}`);
   return res.data;
 };
+
+export const deletePayment = async (id) => {
+  const res = await api.delete(`/payments/${id}`);
+  return res.data;
+};

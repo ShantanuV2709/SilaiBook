@@ -9,11 +9,29 @@
 .dock-panel {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
+  /* Gap between Header, Links, Footer */
   padding: 0.75rem;
   background: #060010;
   border-radius: 1.25rem;
   border: 1px solid #222;
+  align-items: center;
+  /* Center everything */
+}
+
+/* Container for nav items */
+.dock-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Header & Footer alignment */
+.dock-header,
+.dock-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .dock-item {
@@ -45,7 +63,8 @@
 
 .dock-label {
   position: absolute;
-  left: calc(100% + 10px); /* 👉 move label to the RIGHT */
+  left: calc(100% + 10px);
+  /* 👉 move label to the RIGHT */
   top: 50%;
   transform: translateY(-50%);
   background: #060010;
@@ -56,4 +75,61 @@
   border-radius: 0.375rem;
   white-space: nowrap;
   pointer-events: none;
+}
+
+/* RESPONSIVE DESIGN FOR MOBILE */
+@media (max-width: 768px) {
+  .dock-outer {
+    left: 50%;
+    top: auto;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .dock-panel {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .dock-item {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dock-item:hover {
+    transform: scale(1.2) translateY(-6px);
+    /* Pop UP instead of right */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .dock-label {
+    left: 50%;
+    top: auto;
+    bottom: calc(100% + 10px);
+    /* Move label ABOVE */
+    transform: translateX(-50%);
+  }
+
+  .dock-links {
+    flex-direction: row;
+    overflow-x: auto;
+    width: 100%;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE/Edge */
+  }
+
+  .dock-links::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
+  }
 }

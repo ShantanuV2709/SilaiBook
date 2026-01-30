@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
 
 body {
   font-family: 'Inter', sans-serif;
@@ -12,6 +13,14 @@ body {
   background: white;
   outline: none;
   font-size: 0.95rem;
+}
+
+:root.dark .input {
+  background: #1e293b;
+  /* slate-800 */
+  border-color: #475569;
+  /* slate-600 */
+  color: white;
 }
 
 .input:focus {

@@ -5,6 +5,7 @@ import {
   updateCustomer,
   deleteCustomer,
 } from "../api/customers";
+import CustomerOrdersModal from "../components/modals/CustomerOrdersModal";
 
 export default function Customers() {
   const [customers, setCustomers] = useState([]);
@@ -24,6 +25,8 @@ export default function Customers() {
     mobile: "",
     category: "Regular",
   });
+
+  const [historyCustomer, setHistoryCustomer] = useState(null);
 
   const [search, setSearch] = useState("");
 
@@ -88,20 +91,48 @@ export default function Customers() {
   );
 
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
-      <div className="max-w-7xl mx-auto px-8 py-10 space-y-10">
+    <div className="min-h-screen bg-[#eef2ee] dark:bg-[#0f172a] transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 md:px-10 py-6 md:py-10 space-y-6 md:space-y-10">
 
-        <h1 className="text-3xl font-black text-slate-900">
+        <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white">
           Customers
         </h1>
 
+        {/* STATS */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          {/* Total Customers - Violet */}
+          <div className="bg-gradient-to-br from-violet-50 to-purple-100 dark:from-violet-900/30 dark:to-purple-900/20 rounded-3xl p-6 border-2 border-violet-200 dark:border-violet-800 shadow-lg">
+            <p className="text-sm font-semibold text-violet-700 dark:text-violet-400 mb-2">Total Customers</p>
+            <p className="text-3xl font-black text-violet-900 dark:text-violet-100">{filteredCustomers.length}</p>
+            <p className="text-xs text-violet-600 dark:text-violet-500 mt-2">Active Profiles</p>
+          </div>
+
+          {/* Regular - Blue */}
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/20 rounded-3xl p-6 border-2 border-blue-200 dark:border-blue-800 shadow-lg">
+            <p className="text-sm font-semibold text-blue-700 dark:text-blue-400 mb-2">Regular</p>
+            <p className="text-3xl font-black text-blue-900 dark:text-blue-100">
+              {customers.filter(c => c.category === 'Regular').length}
+            </p>
+            <p className="text-xs text-blue-600 dark:text-blue-500 mt-2">Loyal Clients</p>
+          </div>
+
+          {/* VIP - Amber */}
+          <div className="bg-gradient-to-br from-amber-50 to-yellow-100 dark:from-amber-900/30 dark:to-yellow-900/20 rounded-3xl p-6 border-2 border-amber-200 dark:border-amber-800 shadow-lg">
+            <p className="text-sm font-semibold text-amber-700 dark:text-amber-400 mb-2">VIP</p>
+            <p className="text-3xl font-black text-amber-900 dark:text-amber-100">
+              {customers.filter(c => c.category === 'VIP').length}
+            </p>
+            <p className="text-xs text-amber-600 dark:text-amber-500 mt-2">High Value</p>
+          </div>
+        </div>
+
         {/* ADD CUSTOMER */}
-        <div className="bg-white rounded-3xl p-8 border border-slate-100 shadow">
-          <h2 className="font-bold mb-6">Add New Customer</h2>
+        <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 border border-slate-100 dark:border-slate-700 shadow">
+          <h2 className="font-bold mb-6 text-slate-900 dark:text-white">Add New Customer</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <input
-              className="border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-900 outline-none"
+              className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-400 outline-none placeholder:text-slate-400"
               placeholder="Customer name"
               value={form.name}
               onChange={(e) =>
@@ -110,7 +141,7 @@ export default function Customers() {
             />
 
             <input
-              className="border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-900 outline-none"
+              className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-400 outline-none placeholder:text-slate-400"
               placeholder="Mobile number"
               value={form.mobile}
               onChange={(e) =>
@@ -119,7 +150,7 @@ export default function Customers() {
             />
 
             <select
-              className="border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-900 outline-none"
+              className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-400 outline-none"
               value={form.category}
               onChange={(e) =>
                 setForm({ ...form, category: e.target.value })
@@ -135,10 +166,10 @@ export default function Customers() {
               disabled={!form.name || !form.mobile}
               className="
                 rounded-xl
-                border border-slate-900
-                bg-slate-900 text-white
+                border border-slate-900 dark:border-white
+                bg-slate-900 dark:bg-white text-white dark:text-slate-900
                 font-semibold
-                hover:bg-black
+                hover:bg-black dark:hover:bg-slate-200
                 disabled:opacity-40
                 transition
               "
@@ -152,10 +183,11 @@ export default function Customers() {
         <input
           className="
             w-full md:w-80
-            border border-slate-300
+            border border-slate-300 dark:border-slate-600
+            bg-white dark:bg-slate-800 text-slate-900 dark:text-white
             rounded-xl px-4 py-3
-            focus:ring-2 focus:ring-slate-900
-            outline-none
+            focus:ring-2 focus:ring-slate-900 dark:focus:ring-slate-400
+            outline-none placeholder:text-slate-400
           "
           placeholder="Search by name or mobile"
           value={search}
@@ -163,22 +195,22 @@ export default function Customers() {
         />
 
         {/* CUSTOMER TABLE */}
-        <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 overflow-hidden overflow-x-auto">
           {loading ? (
             <p className="p-6 text-slate-400">Loading customers…</p>
           ) : filteredCustomers.length === 0 ? (
             <p className="p-6 text-slate-400">No customers found</p>
           ) : (
-            <table className="w-full table-fixed">
+            <table className="w-full table-fixed min-w-[800px]">
               <colgroup>
                 <col className="w-[30%]" />
-                <col className="w-[25%]" />
                 <col className="w-[20%]" />
-                <col className="w-[25%]" />
+                <col className="w-[20%]" />
+                <col className="w-[30%]" />
               </colgroup>
 
               <thead>
-                <tr className="text-sm text-slate-500 border-b">
+                <tr className="text-sm text-slate-500 dark:text-slate-400 border-b dark:border-slate-700">
                   <th className="py-4 px-6 text-left">Name</th>
                   <th className="text-left">Mobile</th>
                   <th className="text-left">Category</th>
@@ -188,11 +220,11 @@ export default function Customers() {
 
               <tbody>
                 {filteredCustomers.map((c) => (
-                  <tr key={c._id} className="border-t">
-                    <td className="py-4 px-6">
+                  <tr key={c._id} className="border-t dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                    <td className="py-4 px-6 text-slate-900 dark:text-slate-200">
                       {editingId === c._id ? (
                         <input
-                          className="border border-slate-300 rounded-lg px-3 py-2 w-full"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-lg px-3 py-2 w-full outline-none"
                           value={editForm.name}
                           onChange={(e) =>
                             setEditForm({
@@ -206,10 +238,10 @@ export default function Customers() {
                       )}
                     </td>
 
-                    <td>
+                    <td className="text-slate-600 dark:text-slate-300">
                       {editingId === c._id ? (
                         <input
-                          className="border border-slate-300 rounded-lg px-3 py-2 w-full"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-lg px-3 py-2 w-full outline-none"
                           value={editForm.mobile}
                           onChange={(e) =>
                             setEditForm({
@@ -223,10 +255,10 @@ export default function Customers() {
                       )}
                     </td>
 
-                    <td>
+                    <td className="text-slate-600 dark:text-slate-300">
                       {editingId === c._id ? (
                         <select
-                          className="border border-slate-300 rounded-lg px-3 py-2"
+                          className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-lg px-3 py-2 outline-none"
                           value={editForm.category}
                           onChange={(e) =>
                             setEditForm({
@@ -240,7 +272,11 @@ export default function Customers() {
                           <option>Occasional</option>
                         </select>
                       ) : (
-                        c.category
+                        <span className={`px-2 py-1 rounded text-xs font-bold 
+                          ${c.category === 'VIP' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
+                            c.category === 'Regular' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-400'}`}>
+                          {c.category}
+                        </span>
                       )}
                     </td>
 
@@ -249,13 +285,13 @@ export default function Customers() {
                         <div className="flex justify-center gap-2">
                           <button
                             onClick={() => saveEdit(c._id)}
-                            className="px-4 py-2 rounded-xl border border-slate-400 text-slate-700 text-sm hover:border-slate-900"
+                            className="px-4 py-2 rounded-xl border border-slate-400 dark:border-slate-500 text-slate-700 dark:text-slate-300 text-sm hover:border-slate-900 dark:hover:border-white hover:text-slate-900 dark:hover:text-white"
                           >
                             Save
                           </button>
                           <button
                             onClick={cancelEdit}
-                            className="px-4 py-2 rounded-xl border border-slate-300 text-slate-500 text-sm"
+                            className="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-500 text-sm"
                           >
                             Cancel
                           </button>
@@ -263,14 +299,20 @@ export default function Customers() {
                       ) : (
                         <div className="flex justify-center gap-2">
                           <button
+                            onClick={() => setHistoryCustomer(c)}
+                            className="px-4 py-2 rounded-xl bg-slate-900 dark:bg-slate-700 text-white text-sm font-bold hover:bg-black dark:hover:bg-slate-600"
+                          >
+                            Orders
+                          </button>
+                          <button
                             onClick={() => startEdit(c)}
-                            className="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 text-sm hover:border-slate-900"
+                            className="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 text-sm hover:border-slate-900 dark:hover:border-slate-400 hover:text-slate-900 dark:hover:text-white"
                           >
                             Edit
                           </button>
                           <button
                             onClick={() => removeCustomer(c._id)}
-                            className="px-4 py-2 rounded-xl border border-slate-300 text-slate-500 text-sm hover:border-red-400 hover:text-red-500"
+                            className="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-500 text-sm hover:border-red-400 hover:text-red-500"
                           >
                             Delete
                           </button>
@@ -284,6 +326,14 @@ export default function Customers() {
           )}
         </div>
       </div>
+
+      {/* HISTORY MODAL */}
+      {historyCustomer && (
+        <CustomerOrdersModal
+          customer={historyCustomer}
+          onClose={() => setHistoryCustomer(null)}
+        />
+      )}
     </div>
   );
 }

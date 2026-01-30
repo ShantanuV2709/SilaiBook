@@ -1,6 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from typing import List, Optional
 from datetime import datetime
+import shutil
+import os
+import uuid
 
 from app.core.database import get_db
 from app.core.auth_dependencies import get_current_user
@@ -36,6 +39,22 @@ def add_customer(
         "message": "Customer added successfully",
         "customer": doc
     }
+
+@router.post("/upload-photo")
+def upload_photo(file: UploadFile = File(...)):
+    try:
+        # Create unique filename
+        ext = file.filename.split(".")[-1]
+        filename = f"{uuid.uuid4()}.{ext}"
+        filepath = f"app/static/photos/{filename}"
+        
+        with open(filepath, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+            
+        return {"url": f"http://localhost:8000/static/photos/{filename}"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @router.get("/")
 def list_customers(
     search: Optional[str] = None,

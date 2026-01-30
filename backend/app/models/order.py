@@ -21,6 +21,8 @@ class ClothItem(BaseModel):
 class OrderCreate(BaseModel):
     customer_id: str
     order_type: str
+    price: float = 0
+    advance_amount: float = 0  # Added for invoice
     measurements: Dict
     cloth_items: List[ClothItem]
     delivery_date: date
@@ -36,6 +38,8 @@ class OrderOut(BaseModel):
 
     customer_id: str
     order_type: str
+    price: float = 0
+    advance_amount: float = 0  # Added for invoice
 
     measurements_snapshot: Optional[Dict]
 

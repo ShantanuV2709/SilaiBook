@@ -7,6 +7,7 @@ class CustomerCreate(BaseModel):
     mobile: str
     category: Optional[str] = None
     measurements: Optional[Dict] = {}
+    photo_url: Optional[str] = None  # Can store base64 or URL
 
 class CustomerDB(CustomerCreate):
     created_at: datetime
