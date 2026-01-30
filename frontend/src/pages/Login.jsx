@@ -9,6 +9,8 @@ const cards = [
   { id: "04", title: "Payment Management", description: "Track customer-wise payments, bills, advance amounts, and pending status." },
 ];
 
+import ForgotPasswordModal from "../components/ForgotPasswordModal";
+
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +34,7 @@ export default function Login() {
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-50 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-32 px-12 items-center relative">
-        
+
         {/* LEFT — LOGIN FORM */}
         <div className="flex justify-start z-20">
           <div className="w-full max-w-[420px] bg-white rounded-[40px] p-12 shadow-[0_40px_100px_rgba(0,0,0,0.06)] border border-slate-100">
@@ -81,41 +83,43 @@ export default function Login() {
         {/* RIGHT — THE CARDS */}
         <div className="hidden md:block">
           <CardSwap
-  width={640}         // Enlarged Width
-  height={420}        // Enlarged Height
-  cardDistance={100}  // Spacing for the stack
-  verticalDistance={40}
-  skewAmount={7}      // Higher value makes the "opposite face" more visible
-  delay={5000}
->
-  {cards.map((c, i) => (
-    <Card key={i} className="bg-white border border-slate-100 overflow-hidden">
-      {/* Header matching your reference image */}
-      <div className="bg-[#0f172a] px-8 py-5 flex items-center justify-between">
-        <div className="flex gap-2 items-center">
-          <div className="w-3 h-3 rounded-full bg-blue-500" />
-          <span className="text-[11px] text-slate-300 font-mono uppercase tracking-widest">
-            SilaiBook 
-          </span>
-        </div>
-      </div>
-      
-      {/* Content area [cite: 3] */}
-      <div className="p-12 relative h-full flex flex-col justify-start">
-        <h3 className="text-5xl font-black text-slate-900 mb-6 tracking-tighter">{c.title}</h3>
-        <p className="text-slate-500 text-2xl leading-relaxed font-medium">{c.description}</p>
-        
-        {/* Large Watermark Number */}
-        <div className="absolute bottom-[-10px] right-10 text-[200px] font-black text-black/6 select-none italic">
-          {c.id}
-        </div>
-      </div>
-    </Card>
-  ))}
-</CardSwap>
+            width={640}         // Enlarged Width
+            height={420}        // Enlarged Height
+            cardDistance={100}  // Spacing for the stack
+            verticalDistance={40}
+            skewAmount={7}      // Higher value makes the "opposite face" more visible
+            delay={5000}
+          >
+            {cards.map((c, i) => (
+              <Card key={i} className="bg-white border border-slate-100 overflow-hidden">
+                {/* Header matching your reference image */}
+                <div className="bg-[#0f172a] px-8 py-5 flex items-center justify-between">
+                  <div className="flex gap-2 items-center">
+                    <div className="w-3 h-3 rounded-full bg-blue-500" />
+                    <span className="text-[11px] text-slate-300 font-mono uppercase tracking-widest">
+                      SilaiBook
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content area [cite: 3] */}
+                <div className="p-12 relative h-full flex flex-col justify-start">
+                  <h3 className="text-5xl font-black text-slate-900 mb-6 tracking-tighter">{c.title}</h3>
+                  <p className="text-slate-500 text-2xl leading-relaxed font-medium">{c.description}</p>
+
+                  {/* Large Watermark Number */}
+                  <div className="absolute bottom-[-10px] right-10 text-[200px] font-black text-black/6 select-none italic">
+                    {c.id}
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </CardSwap>
         </div>
 
       </div>
+
+      {showForgot && <ForgotPasswordModal onClose={() => setShowForgot(false)} />}
     </div>
   );
 }
