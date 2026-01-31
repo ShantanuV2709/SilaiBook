@@ -18,7 +18,8 @@ export default function Login() {
   const [showForgot, setShowForgot] = useState(false);
 
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e?.preventDefault();
     try {
       const res = await api.post("/auth/login", { username, password });
       localStorage.setItem("token", res.data.access_token);
@@ -29,86 +30,125 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] font-sans flex items-center overflow-hidden relative">
-      {/* Background decoration to match SilaiBook aesthetic */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-50 rounded-full blur-[120px] pointer-events-none" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 font-sans flex items-center overflow-hidden relative selection:bg-blue-500/30">
 
-      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-32 px-12 items-center relative">
+      {/* Abstract Background Shapes */}
+      <div className="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-blue-200/40 rounded-full blur-[120px] pointer-events-none mix-blend-multiply animate-pulse" />
+      <div className="absolute bottom-[-20%] right-[10%] w-[40vw] h-[40vw] bg-cyan-200/40 rounded-full blur-[100px] pointer-events-none mix-blend-multiply" />
+
+      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 px-8 lg:px-12 items-center relative z-10">
 
         {/* LEFT — LOGIN FORM */}
-        <div className="flex justify-start z-20">
-          <div className="w-full max-w-[420px] bg-white rounded-[40px] p-12 shadow-[0_40px_100px_rgba(0,0,0,0.06)] border border-slate-100">
-            <h1 className="text-4xl font-black text-slate-900 mb-2 tracking-tight">Sign In</h1>
-            <p className="text-slate-400 mb-10 text-lg">Manage your SilaiBook account.</p>
+        <div className="flex justify-start w-full">
+          <div className="w-full max-w-[440px] backdrop-blur-2xl bg-white/70 rounded-[3rem] p-10 md:p-14 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-white/60 relative overflow-hidden group">
 
-            {error && <p className="text-red-500 mb-4 font-semibold text-sm">{error}</p>}
+            {/* Subtle gloss effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-transparent pointer-events-none" />
 
-            <div className="space-y-6">
-              <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 ml-1">Username</label>
-                <input
-                  className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-2 focus:ring-slate-900 transition-all outline-none text-slate-900"
-                  placeholder="admin_username"
-                  onChange={(e) => setUsername(e.target.value)}
-                />
+            <div className="relative z-10">
+              <div className="mb-10">
+                <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-3 tracking-tighter">
+                  Welcome Back
+                </h1>
+                <p className="text-slate-500 text-lg font-medium">
+                  Enter your details to access SilaiBook.
+                </p>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 ml-1">Password</label>
-                <input
-                  type="password"
-                  className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-2 focus:ring-slate-900 transition-all outline-none text-slate-900"
-                  placeholder="••••••••"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowForgot(true)}
-                className="text-sm text-slate-500 hover:text-slate-900 transition text-left"
-              >
-                Forgot password?
-              </button>
+              {error && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-100 text-red-600 rounded-2xl text-sm font-semibold flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
+                  <span className="w-2 h-2 rounded-full bg-red-500" />
+                  {error}
+                </div>
+              )}
 
-              <button
-                onClick={handleLogin}
-                className="w-full bg-[#0f172a] text-white py-5 rounded-2xl font-bold text-lg hover:bg-black transition-all shadow-xl active:scale-[0.98] mt-4"
-              >
-                Login
-              </button>
+              <form onSubmit={handleLogin} className="space-y-6">
+                <div className="group/input">
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1 group-focus-within/input:text-blue-600 transition-colors">
+                    Username
+                  </label>
+                  <input
+                    className="w-full px-6 py-4 bg-white/60 border border-slate-200 rounded-2xl focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-slate-900 placeholder:text-slate-300 font-medium"
+                    placeholder="Enter your username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </div>
+
+                <div className="group/input">
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1 group-focus-within/input:text-blue-600 transition-colors">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="password"
+                      className="w-full px-6 py-4 bg-white/60 border border-slate-200 rounded-2xl focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-slate-900 placeholder:text-slate-300 font-medium font-sans text-lg tracking-tight"
+                      placeholder="••••••••"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setShowForgot(true)}
+                    className="text-sm font-semibold text-slate-400 hover:text-blue-600 transition-colors"
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-slate-900 hover:bg-blue-600 text-white py-5 rounded-2xl font-bold text-lg transition-all shadow-xl shadow-slate-900/10 hover:shadow-blue-600/20 active:scale-[0.98] mt-2 relative overflow-hidden"
+                >
+                  <span className="relative z-10">Sign In</span>
+                </button>
+              </form>
             </div>
           </div>
         </div>
 
-        {/* RIGHT — THE CARDS */}
-        <div className="hidden md:block">
+        {/* RIGHT — HIDDEN (Layout Spacer for CardSwap) */}
+        <div className="hidden md:block" />
+      </div>
+
+      {/* FLOATING CARDS — BOTTOM RIGHT */}
+      <div className="hidden md:block absolute bottom-0 right-0 z-0 pointer-events-none translate-y-0 translate-x-0 pr-12 pb-12">
+        <div className="pointer-events-auto">
           <CardSwap
-            width={640}         // Enlarged Width
-            height={420}        // Enlarged Height
-            cardDistance={100}  // Spacing for the stack
-            verticalDistance={40}
-            skewAmount={7}      // Higher value makes the "opposite face" more visible
+            width={640}
+            height={420}
+            cardDistance={60}
+            verticalDistance={70}
             delay={5000}
+            pauseOnHover={false}
           >
             {cards.map((c, i) => (
-              <Card key={i} className="bg-white border border-slate-100 overflow-hidden">
+              <Card key={i} className="bg-white border border-slate-100 overflow-hidden shadow-[0_30px_60px_-10px_rgba(0,0,0,0.15)]">
                 {/* Header matching your reference image */}
-                <div className="bg-[#0f172a] px-8 py-5 flex items-center justify-between">
+                <div className="bg-[#0f172a] px-8 py-6 flex items-center justify-between">
                   <div className="flex gap-2 items-center">
-                    <div className="w-3 h-3 rounded-full bg-blue-500" />
-                    <span className="text-[11px] text-slate-300 font-mono uppercase tracking-widest">
-                      SilaiBook
+                    <div className="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                    <span className="text-[11px] text-slate-300 font-mono uppercase tracking-widest font-semibold opacity-80">
+                      SilaiBook V1
                     </span>
+                  </div>
+                  <div className="flex gap-1.5 opacity-30">
+                    <div className="w-2 h-2 rounded-full bg-white" />
+                    <div className="w-2 h-2 rounded-full bg-white" />
                   </div>
                 </div>
 
                 {/* Content area [cite: 3] */}
-                <div className="p-12 relative h-full flex flex-col justify-start">
-                  <h3 className="text-5xl font-black text-slate-900 mb-6 tracking-tighter">{c.title}</h3>
-                  <p className="text-slate-500 text-2xl leading-relaxed font-medium">{c.description}</p>
+                <div className="p-12 relative h-full flex flex-col justify-start bg-gradient-to-b from-white to-slate-50/50">
+                  <h3 className="text-5xl font-black text-slate-900 mb-6 tracking-tighter leading-[1.1]">{c.title}</h3>
+                  <p className="text-slate-500 text-xl leading-relaxed font-medium max-w-[90%]">{c.description}</p>
 
                   {/* Large Watermark Number */}
-                  <div className="absolute bottom-[-10px] right-10 text-[200px] font-black text-black/6 select-none italic">
+                  <div className="absolute bottom-14 left-6 text-[140px] font-black text-slate-900/5 select-none italic tracking-tighter leading-none">
                     {c.id}
                   </div>
                 </div>
@@ -116,7 +156,6 @@ export default function Login() {
             ))}
           </CardSwap>
         </div>
-
       </div>
 
       {showForgot && <ForgotPasswordModal onClose={() => setShowForgot(false)} />}

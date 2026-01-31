@@ -1,51 +1,35 @@
 .card-swap-container {
-  /* Pinning the whole component to bottom-right */
-  position: fixed;
+  position: absolute;
   bottom: 0;
   right: 0;
-  
-  /* Large container to allow for card shadows and rotation */
-  width: 700px; 
-  height: 500px; 
-  
-  perspective: 1500px;
+  /* transform: translate(25%, 15%); removed to prevents overflow */
+  transform-origin: bottom right;
+
+  perspective: 900px;
   overflow: visible;
-  padding: 40px;
-  pointer-events: none; /* Allows clicking login form through empty space */
-  
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
 }
 
 .card {
   position: absolute;
-  /* Anchor specific cards to bottom right of container */
-  bottom: 60px;
-  right: 60px;
-  
-  /* Larger Dimensions to match your request */
-  width: 560px;
-  height: 360px;
-  
-  border-radius: 32px; /* Smoother, larger corners */
-  background: #ffffff;
-  color: #1a1a1a;
-  
-  /* Premium soft shadow */
-  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.08);
-  
+  top: 50%;
+  left: 50%;
+  border-radius: 12px;
+  border: 1px solid #fff;
+
   transform-style: preserve-3d;
-  transition: all 0.7s cubic-bezier(0.2, 1, 0.3, 1);
-  pointer-events: auto; /* Makes cards interactive again */
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-/* Subtle border to define the "window" shape */
-.card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 32px;
-  border: 1px solid rgba(0,0,0,0.03);
-  pointer-events: none;
+@media (max-width: 768px) {
+  .card-swap-container {
+    transform: scale(0.75) translate(25%, 25%);
+  }
+}
+
+@media (max-width: 480px) {
+  .card-swap-container {
+    transform: scale(0.55) translate(25%, 25%);
+  }
 }
