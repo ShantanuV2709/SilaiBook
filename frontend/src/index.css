@@ -3,8 +3,10 @@
 
 body {
   font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* Base Styles */
 .input {
   width: 100%;
   padding: 0.75rem 1rem;
@@ -13,38 +15,49 @@ body {
   background: white;
   outline: none;
   font-size: 0.95rem;
+  transition: all 0.2s;
 }
 
-:root.dark .input {
+.dark .input {
   background: #1e293b;
-  /* slate-800 */
-  border-color: #475569;
-  /* slate-600 */
+  border-color: #334155;
   color: white;
 }
 
 .input:focus {
-  border-color: #0f172a;
-  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.15);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 .btn-primary {
-  background: #0f172a;
+  background: #2563eb;
   color: white;
-  padding: 0.6rem 1.25rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
   font-weight: 600;
+  transition: all 0.2s;
 }
 
-.btn-primary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.btn-primary:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
 }
 
-.btn-gray {
-  border: 1px solid #cbd5e1;
-  padding: 0.6rem 1.25rem;
-  border-radius: 0.75rem;
-  font-weight: 600;
-  color: #334155;
+.dark .btn-primary {
+  background: #3b82f6;
+}
+
+.dark .btn-primary:hover {
+  background: #2563eb;
+}
+
+.glass-panel {
+  /* Keeping a minimal definition just in case Login uses it, but making it safe */
+  background: white;
+  border: 1px solid #e2e8f0;
+}
+
+.dark .glass-panel {
+  background: #1e293b;
+  border-color: #334155;
 }

@@ -116,7 +116,6 @@ export default function AppLayout() {
       </div>
 
       {/* LEFT NAV DOCK */}
-      {/* Removed header prop (Logo) */}
       <VerticalDock items={items} footer={ThemeFooter} />
 
       {/* MAIN CONTENT */}
