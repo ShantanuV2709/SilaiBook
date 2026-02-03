@@ -47,7 +47,10 @@ def create_order(
         if not stock:
             raise HTTPException(status_code=404, detail="Cloth stock not found")
 
-        remaining = stock["total_meters"] - stock.get("used_meters", 0)
+        remaining = stock.get("remaining_meters")
+        if remaining is None:
+            remaining = stock["total_meters"] - stock.get("used_meters", 0)
+
         if c.meters_used > remaining:
             raise HTTPException(
                 status_code=400,
@@ -60,7 +63,6 @@ def create_order(
         "order_number": order_number,
         "customer_id": ObjectId(order.customer_id),
         "customer_name": customer["name"],
-        "customer_mobile": customer["mobile"],
         "customer_mobile": customer["mobile"],
         "order_type": order.order_type,
         "price": order.price,
@@ -101,7 +103,12 @@ def create_order(
         
         db.cloth_stock.update_one(
             {"_id": ObjectId(c.cloth_stock_id)},
-            {"$inc": {"used_meters": c.meters_used}}
+            {
+                "$inc": {
+                    "used_meters": c.meters_used,
+                    "remaining_meters": -c.meters_used,
+                }
+            }
         )
 
         # 🧾 LOG USAGE
@@ -241,23 +248,6 @@ def mark_order_ready(
         stock = db.cloth_stock.find_one({"_id": cloth_id})
         if not stock:
             raise HTTPException(status_code=404, detail="Cloth stock not found")
-
-        if meters_used > stock["remaining_meters"]:
-            raise HTTPException(
-                status_code=400,
-                detail="Insufficient cloth while marking Ready"
-            )
-
-        # 🔻 DEDUCT REMAINING METERS
-        db.cloth_stock.update_one(
-            {"_id": cloth_id},
-            {
-                "$inc": {
-                    "remaining_meters": -meters_used,
-                    # "used_meters": meters_used  <-- REMOVED: Already incremented at creation
-                }
-            }
-        )
 
         # 🧾 LOG USAGE
         db.cloth_usage.insert_one({

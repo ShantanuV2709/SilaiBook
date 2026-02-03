@@ -10,5 +10,3 @@ class Settings(BaseSettings):
         env_file = ".env"
 
 settings = Settings()
-
-print("SECRET KEY LOADED:", settings.silaibook_secret_key[:5], "...")
