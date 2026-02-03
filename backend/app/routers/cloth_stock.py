@@ -115,7 +115,12 @@ def use_cloth(
     # update stock
     db.cloth_stock.update_one(
         {"_id": ObjectId(stock_id)},
-        {"$set": {"remaining_meters": new_remaining}},
+        {
+            "$inc": {
+                "remaining_meters": -meters_used,
+                "used_meters": meters_used,
+            }
+        },
     )
 
     # INSERT USAGE HISTORY
