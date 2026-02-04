@@ -156,9 +156,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-## 📄 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
 
 <div align="center">
   <small>&copy; 2026 SilaiBook. Crafted with ❤️ for Tailors.</small>

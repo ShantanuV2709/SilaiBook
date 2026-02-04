@@ -280,13 +280,6 @@ graph LR
 ```mermaid
 mindmap
   root((SILAIBOOK))
-    Frontend
-      React 19
-      Vite 7.2
-      TailwindCSS 4.1
-      React Router 7
-      Recharts
-      Axios
     Backend
       FastAPI
       Python 3.x
@@ -295,6 +288,13 @@ mindmap
     Database
       MongoDB
       PyMongo Driver
+    Frontend
+      React 19
+      Vite 7.2
+      TailwindCSS 4.1
+      React Router 7
+      Recharts
+      Axios
     Security
       OAuth2 Password Flow
       JWT Tokens
