@@ -32,7 +32,7 @@ graph TB
     end
     
     subgraph "Data Storage"
-        O[(MongoDB - Store Data)]
+        O[("MongoDB - Store Data")]
         P[Static Asset Store]
     end
     
@@ -195,7 +195,7 @@ erDiagram
 ```mermaid
 graph LR
     subgraph "React Components"
-        A[Router (App.tsx)]
+        A["Router (App.tsx)"]
         B[Dashboard]
         C[OrderList]
         D[OrderDetails]
@@ -249,12 +249,12 @@ graph LR
 ```mermaid
 graph LR
     A["Frontend Request:<br/>POST /orders/"] --> B[Auth Middleware]
-    B --> C[Fetch Customer<br/>(Validate ID)]
-    C --> D[Check Cloth Stock<br/>(Ensure Quantities)]
-    D --> E[Generate ID<br/>ORD-2024-0042]
-    E --> F[Deduct Stock<br/>Update MongoDB]
-    F --> G[Log Usage<br/>Audit Trail]
-    G --> H[Return Response<br/>200 OK + Order #]
+    B --> C["Fetch Customer<br/>(Validate ID)"]
+    C --> D["Check Cloth Stock<br/>(Ensure Quantities)"]
+    D --> E["Generate ID<br/>ORD-2024-0042"]
+    E --> F["Deduct Stock<br/>Update MongoDB"]
+    F --> G["Log Usage<br/>Audit Trail"]
+    G --> H["Return Response<br/>200 OK + Order #"]
     
     style H fill:#4CAF50
 ```
@@ -263,12 +263,12 @@ graph LR
 
 ```mermaid
 graph LR
-    A["Frontend Request:<br/>POST /mark-ready"] --> B[Verify Status<br/>Must be 'Finishing']
-    B --> C[Confirm Toggle<br/>Check 'confirm=true']
-    C --> D[Log Final Usage<br/>Record 'Stage: Ready']
-    D --> E[Update Status<br/>Set 'Ready']
-    E --> F[Update Timestamps<br/>ready_at = Now]
-    F --> G[Return Success<br/>'Order marked Ready']
+    A["Frontend Request:<br/>POST /mark-ready"] --> B["Verify Status<br/>Must be 'Finishing'"]
+    B --> C["Confirm Toggle<br/>Check 'confirm=true'"]
+    C --> D["Log Final Usage<br/>Record 'Stage: Ready'"]
+    D --> E["Update Status<br/>Set 'Ready'"]
+    E --> F["Update Timestamps<br/>ready_at = Now"]
+    F --> G["Return Success<br/>'Order marked Ready'"]
     
     style G fill:#2196F3
 ```
@@ -296,9 +296,9 @@ mindmap
       MongoDB
       PyMongo Driver
     Security
-      OAuth2 (Password Flow)
-      JWT Tokens
-      BCrypt Hashing
+      "OAuth2 (Password Flow)"
+      "JWT Tokens"
+      "BCrypt Hashing"
       CORSMiddleware
     DevOps
       Git/GitHub
@@ -383,9 +383,4 @@ sequenceDiagram
 
 ---
 
-## 📈 Performance & Scaling
 
-- **State Management**: React state handles ephemeral form data; Backend is the single source of truth.
-- **Concurrency**: FastAPI's async capabilities handle multiple order requests simultaneously.
-- **Data Integrity**: MongoDB transactions (implied logic) ensure cloth stock is deducted only if the order succeeds.
-- **Asset Management**: Static files (photos) served via `StaticFiles` mount for efficient delivery.
