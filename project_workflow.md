@@ -296,13 +296,13 @@ mindmap
       MongoDB
       PyMongo Driver
     Security
-      "OAuth2 (Password Flow)"
-      "JWT Tokens"
-      "BCrypt Hashing"
+      OAuth2 Password Flow
+      JWT Tokens
+      BCrypt Hashing
       CORSMiddleware
     DevOps
-      Git/GitHub
-      Virtual Environment (venv)
+      Git GitHub
+      Virtual Environment venv
       NPM / PIP
 ```
 
