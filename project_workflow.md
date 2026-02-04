@@ -203,11 +203,11 @@ graph LR
     end
     
     subgraph "API Routes"
-        F[/orders]
-        G[/orders/{id}]
-        H[/orders/{id}/status]
-        I[/customers]
-        J[/cloth-stock]
+        F["/orders"]
+        G["/orders/{id}"]
+        H["/orders/{id}/status"]
+        I["/customers"]
+        J["/cloth-stock"]
     end
     
     subgraph "Backend Services"
