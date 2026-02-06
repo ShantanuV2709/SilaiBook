@@ -60,12 +60,17 @@
 - **Mobile First:** Optimized layout for mobile devices with a vertical dock navigation.
 - **WhatsApp Integration:** Pre-configured templates for sending order updates and payment reminders.
 
+### 🤖 CORPWISE Chat Integration
+- **Multi-Tenant Support:** Integrated chat widget that isolates data per tenant using `X-Company-ID`.
+- **AI Assistant:** Powered by an external RAG service to answer business queries.
+
 ---
 
 ## 🛠️ Tech Stack
 
 - **Frontend:** React.js, Vite, Tailwind CSS, Recharts (Analytics), Framer Motion (Animations)
 - **Backend:** Python, FastAPI, Pydantic
+- **Chat Service:** External RAG Microservice (running on port 8001)
 - **Database:** MongoDB (via Motor/Beanie ODM)
 - **State Management:** React Context API
 
