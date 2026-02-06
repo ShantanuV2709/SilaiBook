@@ -17,6 +17,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AppLayout from "./layouts/AppLayout";
 
 import { ThemeProvider } from "./context/ThemeContext";
+import ChatWidget from "./components/ChatWidget";
 
 export default function App() {
   return (
@@ -51,6 +52,8 @@ export default function App() {
 
         </Routes>
       </BrowserRouter>
+      {/* Persistent Chat Widget */}
+      <ChatWidget />
     </ThemeProvider>
   );
 }

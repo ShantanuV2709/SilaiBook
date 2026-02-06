@@ -7,6 +7,14 @@ body {
 }
 
 /* Base Styles */
+:root {
+  --primary-color: #3b82f6;
+  /* Blue for SilaiBook to match theme */
+  --text-secondary: #94a3b8;
+  --glass-bg: rgba(15, 23, 42, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
 .input {
   width: 100%;
   padding: 0.75rem 1rem;
