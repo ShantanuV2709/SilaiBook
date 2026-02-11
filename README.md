@@ -121,6 +121,15 @@ npm run dev
 ```
 The application will be accessible at `http://localhost:5173`.
 
+### 4. CORPWISE Configuration
+To enable the AI chat features, open `frontend/src/config.ts` and update the following:
+- **API_KEY**: Paste your secure API Key.
+- **companyId**: Set your unique Company ID.
+- **API_BASE_URL**: URL of the CORPWISE service (default: `http://localhost:8001`).
+
+**Note:** only the API Key and Company ID are needed for secure authentication.
+The application will be accessible at `http://localhost:5173`.
+
 ---
 
 ## 📁 Project Structure

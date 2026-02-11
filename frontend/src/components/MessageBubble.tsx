@@ -104,6 +104,19 @@ export function MessageBubble({
 }) {
   const isUser = message.role === "user";
   const confidence = message.meta?.confidence || "low";
+  const [showSources, setShowSources] = React.useState(false);
+
+  // Confidence Color Logic
+  const getConfidenceColor = (level: string) => {
+    switch (level.toLowerCase()) {
+      case 'high': return '#34d399'; // Green
+      case 'medium': return '#fbbf24'; // Yellow
+      case 'low': return '#ef4444'; // Red
+      default: return '#94a3b8';
+    }
+  };
+
+  const confColor = getConfidenceColor(confidence);
 
   return (
     <div className={`message-row ${isUser ? "user" : "assistant"}`}>
@@ -119,17 +132,89 @@ export function MessageBubble({
         {/* Meta Info (Only for Assistant) */}
         {!isUser && message.meta && (
           <div className="meta-chips">
-            {/* Confidence Chip */}
-            <span className={`chip confidence-${confidence}`}>
-              {confidence.toUpperCase()} Confidence
+            {/* Confidence Badge */}
+            <span
+              className="chip confidence-badge"
+              style={{
+                color: confColor,
+                border: `1px solid ${confColor}`,
+                background: `${confColor}10`, // 10% opacity
+                padding: "2px 8px",
+                borderRadius: 12,
+                fontWeight: 600,
+                fontSize: "0.7rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px"
+              }}
+            >
+              {confidence} Confidence
             </span>
 
-            {/* Source Chips */}
-            {message.meta.sources && message.meta.sources.map((src, i) => (
-              <span key={i} className="chip source" title={`Source: ${src}`}>
-                📄 {src.split("/").pop()}
-              </span>
-            ))}
+            {/* Sources Toggle Button */}
+            {message.meta.sources && message.meta.sources.length > 0 && (
+              <div className="sources-container" style={{ display: "inline-block" }}>
+                <button
+                  onClick={() => setShowSources(!showSources)}
+                  className="source-toggle-btn"
+                  style={{
+                    padding: "4px 12px",
+                    borderRadius: 99,
+                    background: "rgba(59, 130, 246, 0.15)", // Blue tint like 'status'
+                    border: "1px solid rgba(59, 130, 246, 0.3)",
+                    color: "#93c5fd",
+                    fontSize: "0.75rem",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    transition: "all 0.2s"
+                  }}
+                  title="Click to view sources"
+                >
+                  {/* EMOJI REMOVED */}
+                  {message.meta.sources.length} Sources
+                  <span style={{
+                    fontSize: "0.7rem",
+                    transform: showSources ? "rotate(180deg)" : "rotate(0deg)",
+                    transition: "transform 0.2s"
+                  }}>▼</span>
+                </button>
+
+                {/* Expanded Source List */}
+                {showSources && (
+                  <div className="source-list-expanded" style={{
+                    marginTop: 8,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 4,
+                    animation: "fadeIn 0.2s ease-out"
+                  }}>
+                    {message.meta.sources.map((src, i) => (
+                      <a
+                        key={i}
+                        href="#" // In a real app, this would be a link to the doc
+                        className="source-item-row"
+                        style={{
+                          display: "block",
+                          padding: "6px 10px",
+                          background: "rgba(255,255,255,0.05)",
+                          borderRadius: 6,
+                          color: "var(--text-secondary)",
+                          fontSize: "0.8rem",
+                          textDecoration: "none",
+                          border: "1px solid rgba(255,255,255,0.05)",
+                          transition: "background 0.2s"
+                        }}
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        📄 {src.split("/").pop()}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Cached Chip */}
             {message.meta.cached && (

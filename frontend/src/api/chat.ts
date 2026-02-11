@@ -1,21 +1,18 @@
 import { ChatResponse } from "../types/chat";
+import { CORPWISE_CONFIG } from "../config";
 
-const API_BASE = "http://localhost:8001";
+const API_BASE = CORPWISE_CONFIG.API_BASE_URL;
 
 export async function sendQuery(
   userId: string,
   conversationId: string,
-  query: string,
-  companyId?: string // Added optional companyId
+  query: string
 ): Promise<ChatResponse> {
-  const headers: Record<string, string> = { "Content-Type": "application/json" };
-
-  // Fallback: If companyId is not passed, default to "silaibook" 
-  const targetCompany = companyId || "silaibook";
-
-  if (targetCompany) {
-    headers["X-Company-ID"] = targetCompany;
-  }
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    "X-Company-ID": CORPWISE_CONFIG.companyId,
+    "X-API-Key": CORPWISE_CONFIG.API_KEY
+  };
 
   const res = await fetch(`${API_BASE}/chat`, {
     method: "POST",
